@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+
+  caddy:
+    image: abiosoft/caddy
+    # No "restart unless stopped" because of issues with Let's Encrypt's rate limiting
+    volumes:
+      - Caddyfile:/etc/Caddyfile
+      - $HOME/.caddy/:/root/.caddy/
+      - www/:/srv/www/
+    ports:
+      - 80:80
+      - 443:443
+
+  qr-code:
+    image: philippgille/qr-code
+    restart: unless-stopped
+    volumes:
+      - api/data/:/root/data/
+    # No public port, because the Caddy container reverse-proxies to this service's internal port,
+    # which is possible because they're on the same Docker network.
+    command: ["-addr", "$LND_ADDR"]
