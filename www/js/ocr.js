@@ -63,7 +63,7 @@ function drawBoxes(data){
             line.words.forEach((word) => {
                 var boxData = word.boundingBox.split(",");
                 html += '<rect x="' + boxData[0] + '" y="' + boxData[1] + '" width="' + boxData[2] + '" height="' + boxData[3] + '"' +
-                        ' style="filld:white;stroke:red;stroke-width:2;fill-opacity:0.02;stroke-opacity:1" />';
+                        ' style="stroke:red;stroke-width:2;fill-opacity:0;stroke-opacity:1" />';
             });
         });
         setInnerHtmlById("ocrSVG", html);
